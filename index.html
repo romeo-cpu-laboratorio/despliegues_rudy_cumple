@@ -107,6 +107,7 @@
         balloon.style.left = `${Math.random() * 90}%`;
         balloon.style.top = `${Math.random() * 60 + 60}px`;
         balloon.style.animation = 'float 6s ease-in-out infinite';
+        balloon.style.willChange = 'transform';
         const color = colors[Math.floor(Math.random() * colors.length)];
         balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color})`;
         document.body.appendChild(balloon);
@@ -114,6 +115,7 @@
     }
 
     function startCelebration() {
+      clearInterval(intervalId); // limpiar intervalos previos si hay
       document.querySelector('.secret-btn').style.display = 'none';
       confettiBoom();
       const card = document.getElementById("main-card");
@@ -146,7 +148,7 @@
       card.style.animation = "mFold 1.5s ease forwards";
       setTimeout(() => {
         fireworksEffect();
-        card.style.display = 'none';
+        card.remove(); // eliminar del DOM para liberar memoria
         const message = document.createElement('div');
         message.innerText = '🎁 Con cariño, Rudy 💖';
         message.style.fontSize = '2.4rem';
@@ -184,3 +186,4 @@
   </script>
 </body>
 </html>
+
