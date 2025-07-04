@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🎉 Feliz Cumpleaños, Nao</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
       font-size: clamp(14px, 1.8vw + 1.2vh, 22px);
@@ -15,17 +15,15 @@
       background: linear-gradient(to top left, #fff0f5, #f8bbd0);
       overflow-x: hidden;
       margin: 0;
-      padding: 0 1rem;
       text-align: center;
     }
 
     .main-card {
       background: rgba(255,255,255,0.95);
-      width: 90%;
-      max-width: 800px;
-      margin: 2rem auto;
       padding: 2rem;
       border-radius: 20px;
+      max-width: 800px;
+      margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
       z-index: 10;
@@ -43,8 +41,7 @@
       font-size: clamp(1.1rem, 3.5vw, 1.6rem);
       color: #6a1b9a;
       opacity: 0;
-      margin: 1rem 0;
-      font-family: 'Open Sans', sans-serif;
+      margin: 1rem;
     }
 
     #secret-message {
@@ -77,26 +74,12 @@
     .balloon {
       position: fixed;
       z-index: 0;
-      width: 7vw;
-      height: 10vw;
-      min-width: 30px;
-      min-height: 40px;
-      max-width: 50px;
-      max-height: 70px;
+      width: 40px;
+      height: 60px;
       border-radius: 50% 50% 45% 45%;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       animation: float 6s ease-in-out infinite;
       will-change: transform;
-    }
-
-    canvas.confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 5;
     }
 
     @keyframes fadeInText {
@@ -145,18 +128,31 @@
       100% { transform: rotate(3deg); }
     }
 
-    @media (max-width: 480px) {
+    /* Media query para dispositivos móviles */
+    @media only screen and (max-width: 600px) {
       .main-card {
-        padding: 1.2rem;
-        border-radius: 12px;
+        padding: 1rem;
+        border-radius: 10px;
+        max-width: 95%;
       }
 
-      .secret-btn, #closeBtn {
-        padding: 0.8rem 1.2rem;
+      #main-title {
+        font-size: 2rem;
       }
 
       #message-1, #message-2, #secret-message {
-        margin: 0.8rem 0;
+        font-size: 1rem;
+        margin: 0.5rem;
+      }
+
+      .secret-btn, #closeBtn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+      }
+
+      .balloon {
+        width: 30px;
+        height: 45px;
       }
     }
   </style>
@@ -166,7 +162,7 @@
 
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
-    <p id="message-1">Deseo de corazón que pases un día maravilloso en compañía de tu familia y tus seres queridos. Que el universo te devuelva hoy todo lo bonito que mereces.</p>
+    <p id="message-1">Deseo de corazón que pases un día maravilloso en compañía de tu familia y tus seres queridos. Que el universo te devuelva hoy todo lo bonito que mereces </p>
     <p id="message-2">Que este nuevo ciclo en tu vida florezca con experiencias que te hagan crecer, momentos que se conviertan en recuerdos felices y logros que te llenen de un inmenso orgullo. Eres una persona admirable.</p>
     <div id="secret-message">Te deseo todo lo mejor, no solo hoy, sino siempre. A la distancia, te envío el más cálido de los abrazos. 🫂🤗</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!</button>
@@ -231,44 +227,6 @@
         document.getElementById("closeBtn").style.display = 'inline-block';
       }, 12000);
       intervalId = setInterval(confettiBoom, 1000);
-      generateBalloons();
-    }
-
-    function sayGoodbye(button) {
-      clearInterval(intervalId);
-      const card = document.getElementById("main-card");
-      card.style.animation = "mFold 1.5s ease forwards";
-      setTimeout(() => {
-        fireworksEffect();
-        card.remove();
-        const message = document.createElement('div');
-        message.innerText = 'Con cariño, Rudy 😊';
-        message.style.fontSize = '2.4rem';
-        message.style.color = '#6a1b9a';
-        message.style.fontFamily = "'Dancing Script', cursive";
-        message.style.margin = '80px auto 0';
-        message.style.animation = 'zoomInFast 1s ease-in-out forwards, swing 2s infinite ease-in-out';
-        message.style.opacity = 0;
-        message.style.transform = 'scale(0)';
-        message.style.textAlign = 'center';
-        message.style.position = 'relative';
-
-        const balloon1 = document.createElement('div');
-        balloon1.className = 'balloon';
-        balloon1.style.top = '-50px';
-        balloon1.style.left = '30%';
-        balloon1.style.background = 'radial-gradient(circle at 30% 30%, #ff80ab, #ff4081)';
-
-        const balloon2 = balloon1.cloneNode();
-        balloon2.style.left = '60%';
-        balloon2.style.background = 'radial-gradient(circle at 30% 30%, #ba68c8, #8e24aa)';
-
-        message.appendChild(balloon1);
-        message.appendChild(balloon2);
-        document.body.appendChild(message);
-        intervalId = setInterval(confettiBoom, 1000);
-      }, 1500);
-    }
-  </script>
-</body>
-</html>
+      generate
+::contentReference[oaicite:5]{index=5}
+ 
