@@ -30,6 +30,7 @@
       z-index: 10;
       display: none;
       transition: height 0.3s ease;
+      overflow: hidden;
     }
 
     #main-title {
@@ -162,17 +163,14 @@
 </head>
 <body>
   <button class="secret-btn">✨ ¡Haz clic, Nao! ✨</button>
-
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
     <p id="message-1">Deseo de corazón que pases un día maravilloso en compañía de tu familia y tus seres queridos. Que el universo te devuelva hoy todo lo bonito que mereces </p>
     <p id="message-2">Que este nuevo ciclo en tu vida florezca con experiencias que te hagan crecer, momentos que se conviertan en recuerdos felices y logros que te llenen de un inmenso orgullo. Eres una persona admirable.</p>
-    <div id="secret-message">Te deseo todo lo mejor, no solo hoy, sino siempre. A la distancia, te envío el más cálido de los abrazos. 🫂🤗</div>
+    <div id="secret-message">Te deseo todo lo mejor, no solo hoy, sino siempre. A la distancia, te envío el más cálido de los abrazos. 🩆🫷</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!</button>
   </div>
-
   <canvas class="confetti"></canvas>
-
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     let intervalId;
@@ -209,9 +207,11 @@
 
     function adjustCardHeight() {
       const card = document.getElementById("main-card");
-      card.style.height = 'auto';
-      const totalHeight = card.scrollHeight;
-      card.style.height = `${totalHeight}px`;
+      requestAnimationFrame(() => {
+        card.style.height = 'auto';
+        const totalHeight = card.scrollHeight;
+        card.style.height = `${totalHeight}px`;
+      });
     }
 
     function startCelebration() {
