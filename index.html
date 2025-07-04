@@ -63,6 +63,8 @@
       box-shadow: 0 0 20px #ff80ab;
       animation: pulse 1.5s infinite;
       max-width: 90%;
+      z-index: 20;
+      position: relative;
     }
 
     #closeBtn {
@@ -128,7 +130,6 @@
       100% { transform: rotate(3deg); }
     }
 
-    /* Media query para dispositivos móviles */
     @media only screen and (max-width: 600px) {
       .main-card {
         padding: 1rem;
@@ -158,7 +159,7 @@
   </style>
 </head>
 <body>
-  <button class="secret-btn" onclick="startCelebration()">✨ ¡Haz clic, Nao! ✨</button>
+  <button class="secret-btn">✨ ¡Haz clic, Nao! ✨</button>
 
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
@@ -227,6 +228,51 @@
         document.getElementById("closeBtn").style.display = 'inline-block';
       }, 12000);
       intervalId = setInterval(confettiBoom, 1000);
-      generate
-::contentReference[oaicite:5]{index=5}
- 
+      generateBalloons();
+    }
+
+    function sayGoodbye(button) {
+      clearInterval(intervalId);
+      const card = document.getElementById("main-card");
+      card.style.animation = "mFold 1.5s ease forwards";
+      setTimeout(() => {
+        fireworksEffect();
+        card.remove();
+        const message = document.createElement('div');
+        message.innerText = 'Con cariño, Rudy 😊';
+        message.style.fontSize = '2.4rem';
+        message.style.color = '#6a1b9a';
+        message.style.fontFamily = "'Dancing Script', cursive";
+        message.style.margin = '80px auto 0';
+        message.style.animation = 'zoomInFast 1s ease-in-out forwards, swing 2s infinite ease-in-out';
+        message.style.opacity = 0;
+        message.style.transform = 'scale(0)';
+        message.style.textAlign = 'center';
+        message.style.position = 'relative';
+
+        const balloon1 = document.createElement('div');
+        balloon1.className = 'balloon';
+        balloon1.style.top = '-50px';
+        balloon1.style.left = '30%';
+        balloon1.style.background = 'radial-gradient(circle at 30% 30%, #ff80ab, #ff4081)';
+
+        const balloon2 = balloon1.cloneNode();
+        balloon2.style.left = '60%';
+        balloon2.style.background = 'radial-gradient(circle at 30% 30%, #ba68c8, #8e24aa)';
+
+        message.appendChild(balloon1);
+        message.appendChild(balloon2);
+        document.body.appendChild(message);
+        intervalId = setInterval(confettiBoom, 1000);
+      }, 1500);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const triggerBtn = document.querySelector('.secret-btn');
+      triggerBtn.addEventListener('click', () => {
+        startCelebration();
+      });
+    });
+  </script>
+</body>
+</html>
