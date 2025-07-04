@@ -22,12 +22,14 @@
       background: rgba(255,255,255,0.95);
       padding: 2rem;
       border-radius: 20px;
+      width: 90%;
       max-width: 800px;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
       z-index: 10;
       display: none;
+      transition: height 0.3s ease;
     }
 
     #main-title {
@@ -134,7 +136,7 @@
       .main-card {
         padding: 1rem;
         border-radius: 10px;
-        max-width: 95%;
+        width: 95%;
       }
 
       #main-title {
@@ -205,27 +207,39 @@
       }
     }
 
+    function adjustCardHeight() {
+      const card = document.getElementById("main-card");
+      card.style.height = 'auto';
+      const totalHeight = card.scrollHeight;
+      card.style.height = `${totalHeight}px`;
+    }
+
     function startCelebration() {
       document.querySelector('.secret-btn').style.display = 'none';
       confettiBoom();
       const card = document.getElementById("main-card");
       card.style.display = "block";
       document.getElementById("main-title").style.animation = "fadeIn 2s ease-in-out forwards";
+      adjustCardHeight();
       setTimeout(() => {
         document.getElementById("message-1").style.animation = "fadeInText 1.5s ease-in-out forwards";
         confettiBoom();
+        adjustCardHeight();
       }, 3000);
       setTimeout(() => {
         document.getElementById("message-2").style.animation = "fadeInText 1.5s ease-in-out forwards";
+        adjustCardHeight();
       }, 6000);
       setTimeout(() => {
         const secret = document.getElementById("secret-message");
         secret.style.display = "block";
         secret.style.animation = "fadeInText 1.5s ease-in-out forwards";
         confettiBoom();
+        adjustCardHeight();
       }, 9000);
       setTimeout(() => {
         document.getElementById("closeBtn").style.display = 'inline-block';
+        adjustCardHeight();
       }, 12000);
       intervalId = setInterval(confettiBoom, 1000);
       generateBalloons();
