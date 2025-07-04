@@ -22,15 +22,12 @@
       background: rgba(255,255,255,0.95);
       padding: 2rem;
       border-radius: 20px;
-      width: 90%;
       max-width: 800px;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
       z-index: 10;
       display: none;
-      transition: height 0.3s ease;
-      overflow: hidden;
     }
 
     #main-title {
@@ -66,8 +63,6 @@
       box-shadow: 0 0 20px #ff80ab;
       animation: pulse 1.5s infinite;
       max-width: 90%;
-      z-index: 20;
-      position: relative;
     }
 
     #closeBtn {
@@ -132,45 +127,21 @@
       50% { transform: rotate(-3deg); }
       100% { transform: rotate(3deg); }
     }
-
-    @media only screen and (max-width: 600px) {
-      .main-card {
-        padding: 1rem;
-        border-radius: 10px;
-        width: 95%;
-      }
-
-      #main-title {
-        font-size: 2rem;
-      }
-
-      #message-1, #message-2, #secret-message {
-        font-size: 1rem;
-        margin: 0.5rem;
-      }
-
-      .secret-btn, #closeBtn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-      }
-
-      .balloon {
-        width: 30px;
-        height: 45px;
-      }
-    }
   </style>
 </head>
 <body>
-  <button class="secret-btn">✨ ¡Haz clic, Nao! ✨</button>
+  <button class="secret-btn" onclick="startCelebration()">✨ ¡Haz clic, Nao! ✨</button>
+
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
     <p id="message-1">Deseo de corazón que pases un día maravilloso en compañía de tu familia y tus seres queridos. Que el universo te devuelva hoy todo lo bonito que mereces </p>
     <p id="message-2">Que este nuevo ciclo en tu vida florezca con experiencias que te hagan crecer, momentos que se conviertan en recuerdos felices y logros que te llenen de un inmenso orgullo. Eres una persona admirable.</p>
-    <div id="secret-message">Te deseo todo lo mejor, no solo hoy, sino siempre. A la distancia, te envío el más cálido de los abrazos. 🩆🫷</div>
+    <div id="secret-message">Te deseo todo lo mejor, no solo hoy, sino siempre. A la distancia, te envío el más cálido de los abrazos. 🫂🤗</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!</button>
   </div>
+
   <canvas class="confetti"></canvas>
+
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     let intervalId;
@@ -205,41 +176,27 @@
       }
     }
 
-    function adjustCardHeight() {
-      const card = document.getElementById("main-card");
-      requestAnimationFrame(() => {
-        card.style.height = 'auto';
-        const totalHeight = card.scrollHeight;
-        card.style.height = `${totalHeight}px`;
-      });
-    }
-
     function startCelebration() {
       document.querySelector('.secret-btn').style.display = 'none';
       confettiBoom();
       const card = document.getElementById("main-card");
       card.style.display = "block";
       document.getElementById("main-title").style.animation = "fadeIn 2s ease-in-out forwards";
-      adjustCardHeight();
       setTimeout(() => {
         document.getElementById("message-1").style.animation = "fadeInText 1.5s ease-in-out forwards";
         confettiBoom();
-        adjustCardHeight();
       }, 3000);
       setTimeout(() => {
         document.getElementById("message-2").style.animation = "fadeInText 1.5s ease-in-out forwards";
-        adjustCardHeight();
       }, 6000);
       setTimeout(() => {
         const secret = document.getElementById("secret-message");
         secret.style.display = "block";
         secret.style.animation = "fadeInText 1.5s ease-in-out forwards";
         confettiBoom();
-        adjustCardHeight();
       }, 9000);
       setTimeout(() => {
         document.getElementById("closeBtn").style.display = 'inline-block';
-        adjustCardHeight();
       }, 12000);
       intervalId = setInterval(confettiBoom, 1000);
       generateBalloons();
@@ -280,13 +237,6 @@
         intervalId = setInterval(confettiBoom, 1000);
       }, 1500);
     }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const triggerBtn = document.querySelector('.secret-btn');
-      triggerBtn.addEventListener('click', () => {
-        startCelebration();
-      });
-    });
   </script>
 </body>
 </html>
