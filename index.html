@@ -109,16 +109,16 @@
       100% { transform: translateY(0); }
     }
 
-    @keyframes mFold {
+    @keyframes explodeOut {
       0% {
-        transform: scale(1) rotate(0deg);
         opacity: 1;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 70% 100%, 70% 30%, 50% 50%, 30% 30%, 30% 100%, 0% 100%);
+        transform: scale(1) rotate(0deg);
+        filter: blur(0);
       }
       100% {
-        transform: scale(0) rotate(360deg);
-        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%);
         opacity: 0;
+        transform: scale(1.8) rotate(30deg);
+        filter: blur(12px);
       }
     }
 
@@ -126,6 +126,11 @@
       0% { transform: rotate(3deg); }
       50% { transform: rotate(-3deg); }
       100% { transform: rotate(3deg); }
+    }
+
+    @keyframes fallDown {
+      0% { transform: translateY(-200px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
@@ -135,9 +140,9 @@
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
     <p id="message-1">Deseo de corazón que hoy tengas un día maravilloso, rodeada del cariño de tu familia y las personas que más te aprecian. Que cada momento esté lleno de alegría, tranquilidad y buenas energías.</p>
-<p id="message-2">Ojalá este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas, y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos, y logros que te llenen de satisfacción y orgullo.</p>
-<div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.  
-<br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
+    <p id="message-2">Ojalá este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas, y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos, y logros que te llenen de satisfacción y orgullo.</p>
+    <div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.  
+    <br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!</button>
   </div>
 
@@ -206,7 +211,7 @@
     function sayGoodbye(button) {
       clearInterval(intervalId);
       const card = document.getElementById("main-card");
-      card.style.animation = "mFold 1.5s ease forwards";
+      card.style.animation = "explodeOut 1s ease forwards";
       setTimeout(() => {
         fireworksEffect();
         card.remove();
@@ -216,11 +221,13 @@
         message.style.color = '#6a1b9a';
         message.style.fontFamily = "'Dancing Script', cursive";
         message.style.margin = '80px auto 0';
-        message.style.animation = 'zoomInFast 1s ease-in-out forwards, swing 2s infinite ease-in-out';
+        message.style.animation = 'fallDown 1s ease-out forwards, swing 2s infinite ease-in-out';
         message.style.opacity = 0;
-        message.style.transform = 'scale(0)';
+        message.style.transform = 'translateY(-200px)';
         message.style.textAlign = 'center';
         message.style.position = 'relative';
+        message.style.maxWidth = '90%';
+        message.style.wordWrap = 'break-word';
 
         const balloon1 = document.createElement('div');
         balloon1.className = 'balloon';
@@ -236,7 +243,7 @@
         message.appendChild(balloon2);
         document.body.appendChild(message);
         intervalId = setInterval(confettiBoom, 1000);
-      }, 1500);
+      }, 1000);
     }
   </script>
 </body>
